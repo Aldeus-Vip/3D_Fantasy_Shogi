@@ -11,7 +11,9 @@ export const MODEL_SETS = {
     style: 'dragon',
     colors: { body: 0xb8322a, accent: 0xf2b134, dark: 0x3a1410, eye: 0xffe066 },
     effectColor: 0xff7a2a,
-    models: {},
+    models: {
+      K: 'king.glb',
+    },
   },
   undead: {
     id: 'undead',

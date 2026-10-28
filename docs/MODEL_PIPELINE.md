@@ -44,6 +44,13 @@
 | +L | 成香 | lance_promoted.glb |
 | +P | と金 | pawn_promoted.glb |
 
+### テクスチャの縮小(ファイルが重いとき)
+Meshy の GLB はテクスチャが 2048px で、1体 約9MB になる。1024px に縮小すると約2MB になる。
+
+```bash
+npx @gltf-transform/cli resize 元ファイル.glb public/models/dragon/king.glb --width 1024 --height 1024
+```
+
 ## 3. セット定義に登録する
 `src/sets/index.js` の `models` に追記する。書いた駒だけ実モデルになり、残りは仮モデルのまま動く。
 

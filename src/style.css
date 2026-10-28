@@ -1,0 +1,172 @@
+:root {
+  --bg: #0d0b16;
+  --panel: rgba(22, 18, 36, 0.86);
+  --border: rgba(245, 230, 192, 0.25);
+  --text: #f5ecd8;
+  --muted: #b9ae95;
+  --gold: #f2c94c;
+  --sente: #2f7bff;
+  --gote: #ff3b3b;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+}
+
+#stage { position: fixed; inset: 0; }
+
+#hud {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.player {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  opacity: 0.6;
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+.player.active { opacity: 1; }
+#player0.active { box-shadow: 0 0 0 2px var(--sente); }
+#player1.active { box-shadow: 0 0 0 2px var(--gote); }
+.player .side { font-weight: bold; }
+#player0 .side { color: #8fb6ff; }
+#player1 .side { color: #ff9a9a; }
+.player .clock { font-variant-numeric: tabular-nums; color: var(--gold); min-width: 3.5em; }
+.player .clock:empty { display: none; }
+
+#turn { font-weight: bold; padding: 6px 10px; }
+
+#toolbar {
+  position: fixed;
+  right: 12px;
+  top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+button {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--gold); }
+button.primary { background: #6b4b12; border-color: var(--gold); }
+button:disabled { opacity: 0.4; cursor: default; }
+
+.toggle {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
+#skip {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.05em;
+  padding: 10px 28px;
+}
+
+#help {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  max-width: 360px;
+  font-size: 0.8em;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+#banner {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-shadow: 0 0 18px #ff2020, 0 0 4px #000;
+  pointer-events: none;
+  opacity: 0;
+}
+#banner.show { animation: banner 1.3s ease-out; }
+@keyframes banner {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+dialog {
+  color: var(--text);
+  background: #1a1528;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  min-width: 320px;
+}
+dialog::backdrop { background: rgba(0, 0, 0, 0.55); }
+dialog h2 { margin: 0 0 14px; font-size: 1.25em; }
+dialog .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 10px 0;
+}
+dialog menu {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  margin: 18px 0 0;
+}
+dialog select, dialog input[type="number"] {
+  font: inherit;
+  color: var(--text);
+  background: #0f0c18;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+#resultDialog .headline { font-size: 1.8em; color: var(--gold); text-align: center; }
+#resultDialog .reason { text-align: center; color: var(--muted); }
+
+@media (max-width: 700px) {
+  #toolbar { top: auto; bottom: 12px; right: 8px; left: 8px; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  #toolbar button { padding: 6px 8px; font-size: 0.85em; }
+  #help { display: none; }
+  #hud { gap: 6px; font-size: 0.85em; }
+  #banner { font-size: 40px; }
+}

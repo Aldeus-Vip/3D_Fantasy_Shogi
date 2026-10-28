@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Fantasy Shogi</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="stage"></div>
+
+    <div id="hud">
+      <div class="player" id="player1">
+        <span class="side" data-i18n="gote"></span>
+        <span class="set-name"></span>
+        <span class="clock"></span>
+      </div>
+      <div id="turn"></div>
+      <div class="player" id="player0">
+        <span class="side" data-i18n="sente"></span>
+        <span class="set-name"></span>
+        <span class="clock"></span>
+      </div>
+    </div>
+
+    <div id="toolbar">
+      <button data-action="newGame" data-i18n="newGame"></button>
+      <button data-action="undo" data-i18n="undo"></button>
+      <button data-action="resign" data-i18n="resign"></button>
+      <button data-action="declare" data-i18n="declare"></button>
+      <button data-action="saveKif" data-i18n="saveKif"></button>
+      <button data-action="flip" data-i18n="flip"></button>
+      <button data-action="settings" data-i18n="settings"></button>
+      <label class="toggle"><input type="checkbox" id="fast" /> <span data-i18n="fast"></span></label>
+    </div>
+
+    <button id="skip" hidden data-i18n="skip"></button>
+    <div id="help" data-i18n="help"></div>
+    <div id="banner"></div>
+
+    <!-- 新規対局 -->
+    <dialog id="newGameDialog">
+      <form method="dialog">
+        <h2 data-i18n="newGame"></h2>
+        <div class="row">
+          <label><span data-i18n="sente"></span> <span data-i18n="modelSet"></span></label>
+          <select name="set0"></select>
+        </div>
+        <div class="row">
+          <label><span data-i18n="gote"></span> <span data-i18n="modelSet"></span></label>
+          <select name="set1"></select>
+        </div>
+        <div class="row">
+          <label data-i18n="timeControl"></label>
+          <select name="timeMode">
+            <option value="none" data-i18n="timeNone"></option>
+            <option value="sudden" data-i18n="timeSudden"></option>
+            <option value="byoyomi" data-i18n="timeByoyomi"></option>
+          </select>
+        </div>
+        <div class="row">
+          <label data-i18n="mainMinutes"></label>
+          <input type="number" name="mainMinutes" value="10" min="0" max="180" />
+        </div>
+        <div class="row">
+          <label data-i18n="byoyomiSeconds"></label>
+          <input type="number" name="byoyomi" value="30" min="5" max="120" />
+        </div>
+        <menu>
+          <button value="cancel" data-i18n="cancel"></button>
+          <button value="start" class="primary" data-i18n="start"></button>
+        </menu>
+      </form>
+    </dialog>
+
+    <!-- 設定 -->
+    <dialog id="settingsDialog">
+      <form method="dialog">
+        <h2 data-i18n="settings"></h2>
+        <div class="row">
+          <label data-i18n="effects"></label>
+          <select name="effects">
+            <option value="full" data-i18n="effectsFull"></option>
+            <option value="simple" data-i18n="effectsSimple"></option>
+            <option value="none" data-i18n="effectsNone"></option>
+          </select>
+        </div>
+        <div class="row">
+          <label data-i18n="labels"></label>
+          <input type="checkbox" name="labels" checked />
+        </div>
+        <div class="row">
+          <label data-i18n="sfxVolume"></label>
+          <input type="range" name="sfx" min="0" max="1" step="0.05" />
+        </div>
+        <div class="row">
+          <label data-i18n="bgmVolume"></label>
+          <input type="range" name="bgm" min="0" max="1" step="0.05" />
+        </div>
+        <div class="row">
+          <label data-i18n="language"></label>
+          <select name="lang">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <menu><button value="close" class="primary" data-i18n="close"></button></menu>
+      </form>
+    </dialog>
+
+    <!-- 成り選択 -->
+    <dialog id="promoteDialog">
+      <form method="dialog">
+        <h2 data-i18n="promoteQ"></h2>
+        <menu>
+          <button value="no" data-i18n="noPromote"></button>
+          <button value="yes" class="primary" data-i18n="promote"></button>
+        </menu>
+      </form>
+    </dialog>
+
+    <!-- 確認 -->
+    <dialog id="confirmDialog">
+      <form method="dialog">
+        <p class="message"></p>
+        <menu>
+          <button value="cancel" data-i18n="cancel"></button>
+          <button value="ok" class="primary" data-i18n="ok"></button>
+        </menu>
+      </form>
+    </dialog>
+
+    <!-- 終局 -->
+    <dialog id="resultDialog">
+      <form method="dialog">
+        <h2 class="headline"></h2>
+        <p class="reason"></p>
+        <menu>
+          <button value="kif" data-i18n="saveKif"></button>
+          <button value="close" data-i18n="close"></button>
+          <button value="new" class="primary" data-i18n="newGame"></button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
